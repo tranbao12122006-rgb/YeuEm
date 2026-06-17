@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/qvjz8QFW/Logo.png" />
+    <title>💌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+    <!-- Khung bọc ngoài để chứa cả thư và ảnh xung quanh -->
+    <div class="envlope-wrapper">
+        <!-- Bức thư -->
+        <div id="envelope" class="close">
+            <div class="wax-seal"></div>
+            <div class="front flap"></div>
+            <div class="front pocket"></div>
+            <div class="letter">
+                <div class="letter-corner corner-tl"></div>
+                <div class="letter-corner corner-br"></div>
+                <div class="message">
+                    <!-- 
+                        [HƯỚNG DẪN CHỈNH SỬA LỜI THƯ]:
+                        - Bạn có thể thay đổi nội dung chữ trong thẻ <p>...</p> của từng trang bên dưới.
+                        - Để THÊM câu mới: Copy 1 khối div, đổi id thành "pageX" (tăng dần: page24, page25,...) rồi viết nội dung mới vào.
+                        - Để BỚT câu: Xóa bớt các khối div.
+                        - LƯU Ý: Sau khi thêm/bớt câu, bạn bắt buộc phải vào file 'style/script.js', tìm dòng 'const totalPages = 23;' 
+                          và đổi số 23 thành tổng số câu mới của bạn thì chữ mới chạy hết được.
+                    -->
+                    <div class="lyrics">
+                        <div class="lyric-page active" id="page1">
+                            <p>Gửi Em,...🌸 </p>
+                        </div>
+                        <div class="lyric-page" id="page2">
+                            <p>Nhân ngày Quốc tế Phụ nữ 8/3,</p>
+                        </div>
+                        <div class="lyric-page" id="page3">
+                            <p>anh muốn gửi đến em những điều dịu dàng nhất.</p>
+                        </div>
+                        <div class="lyric-page" id="page4">
+                            <p>Cảm ơn em vì đã luôn xinh đẹp theo cách của riêng mình,</p>
+                        </div>
+                        <div class="lyric-page" id="page5">
+                            <p>và mang đến cho mọi người thật nhiều năng lượng tích cực.</p>
+                        </div>
+                        <div class="lyric-page" id="page6">
+                            <p>Chúc em luôn rạng rỡ như ánh nắng ban mai ☀️,</p>
+                        </div>
+                        <div class="lyric-page" id="page7">
+                            <p>luôn mỉm cười thật tươi và hạnh phúc mỗi ngày.</p>
+                        </div>
+                        <div class="lyric-page" id="page8">
+                            <p>Mong rằng mọi điều tốt đẹp nhất ✨,</p>
+                        </div>
+                        <div class="lyric-page" id="page9">
+                            <p>sẽ luôn đến bên em thật nhẹ nhàng và trọn vẹn.</p>
+                        </div>
+                        <div class="lyric-page" id="page10">
+                            <p>Chúc em thành công trong những điều em theo đuổi,</p>
+                        </div>
+                        <div class="lyric-page" id="page11">
+                            <p>và luôn tự tin với chính mình ❤️.</p>
+                        </div>
+                        <div class="lyric-page" id="page12">
+                            <p>Dù hôm nay hay bất cứ ngày nào,</p>
+                        </div>
+                        <div class="lyric-page" id="page13">
+                            <p>em vẫn luôn xứng đáng được yêu thương,</p>
+                        </div>
+                        <div class="lyric-page" id="page14">
+                            <p>được trân trọng và được nâng niu.</p>
+                        </div>
+                        <div class="lyric-page" id="page15">
+                            <p>Hy vọng ngày 8/3 của em,</p>
+                        </div>
+                        <div class="lyric-page" id="page16">
+                            <p>sẽ ngập tràn hoa, quà và những lời chúc ngọt ngào 💐.</p>
+                        </div>
+                        <div class="lyric-page" id="page17">
+                            <p>Cảm ơn em vì đã là chính em,</p>
+                        </div>
+                        <div class="lyric-page" id="page18">
+                            <p>một cô gái tuyệt vời và đầy bản lĩnh ☺️.</p>
+                        </div>
+                        <div class="lyric-page" id="page19">
+                            <p>Mong rằng nụ cười ấy sẽ luôn hiện diện trên môi em,</p>
+                        </div>
+                        <div class="lyric-page" id="page20">
+                            <p>không chỉ riêng hôm nay mà cả những ngày sau nữa.</p>
+                        </div>
+                        <div class="lyric-page" id="page21">
+                            <p>Chúc em một ngày 8/3 thật ý nghĩa,</p>
+                        </div>
+                        <div class="lyric-page" id="page22">
+                            <p>thật hạnh phúc và trọn vẹn.</p>
+                        </div>
+                        <div class="lyric-page" id="page23">
+                            <p>Luôn vui vẻ và tỏa sáng nhé ❤️</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hearts">
+                <div class="heart a1"></div>
+                <div class="heart a2"></div>
+                <div class="heart a3"></div>
+            </div>
+            <div class="sparkles">
+                <div class="sparkle s1"></div>
+                <div class="sparkle s2"></div>
+                <div class="sparkle s3"></div>
+            </div>
+        </div>
+
+        <!-- Các ảnh nhỏ xung quanh (sẽ được JavaScript thay đổi ngẫu nhiên) -->
+        <div class="surrounding-photos" id="surroundingPhotos">
+            <img src="images/1.jpg" alt="ảnh 1" />
+            <img src="images/2.jpg" alt="ảnh 2" />
+            <img src="images/3.jpg" alt="ảnh 3" />
+            <img src="images/4.jpg" alt="ảnh 4" />
+            <img src="images/5.jpg" alt="ảnh 5" />
+            <img src="images/6.jpg" alt="ảnh 6" />
+        </div>
+    </div>
+
+    <!-- Nút điều khiển -->
+    <div class="controls">
+        <button id="openBtn">Open</button>
+        <button id="resetBtn" style="display: none;">Close</button>
+    </div>
+    <audio id="sound" loop>
+        <source src="./style/Nhac.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./style/script.js"></script>
+</body>
+
+</html>

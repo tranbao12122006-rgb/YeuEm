@@ -1,0 +1,535 @@
+:root {
+    /* [CẤU HÌNH MÀU SẮC THƯ] - Bạn có thể đổi mã màu hex (#...) ở đây để thay màu thư */
+    --color-env: #FFB7C5;
+    /* Màu mặt ngoài của phong bì */
+    --color-env2: #ff9aad;
+    /* Màu mặt trong/nắp trong của phong bì */
+    --color-flap: #ff8da1;
+    /* Màu nắp gập của phong bì */
+    --color-bg: #ed7fca;
+    /* Màu nền dự phòng */
+    --color-heart: #ff85a2;
+    /* Màu của các trái tim bay lên */
+    --color-sparkle: #fff;
+    /* Màu của các lấp lánh (sparkle) bay lên */
+    --wax-red: #c04040;
+    /* Màu của con dấu sáp tròn */
+}
+
+body {
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    cursor: auto;
+}
+
+/* ===== BỐ CỤC CHÍNH ===== */
+/* [CHỈNH KÍCH THƯỚC KHUNG CHỨA THƯ VÀ ẢNH XUNG QUANH]
+   - Mặc định khung chứa rộng 600px, cao 380px.
+   - Nếu bạn tăng kích thước bức thư (#envelope), bạn cần tăng tương ứng độ rộng (width) và độ cao (height) ở đây
+     để các bức ảnh xung quanh không đè lên phong bì và có đủ không gian hiển thị.
+*/
+.envlope-wrapper {
+    position: relative;
+    height: 570px;
+    /* Chiều cao khung chứa (đã tăng 1.5x từ 380px) */
+    margin-top: 50px;
+    animation: float 3s ease-in-out infinite;
+    width: 900px;
+    /* Chiều rộng khung chứa (đã tăng 1.5x từ 600px) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== ẢNH XUNG QUANH ===== */
+.surrounding-photos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* [CHỈNH KÍCH THƯỚC CÁC ẢNH XUNG QUANH]
+   - width: 70px và height: 70px là kích thước mặc định của mỗi ảnh xung quanh.
+   - Đã tăng 1.5x lên 100px để ảnh trông cân đối và rõ nét hơn.
+*/
+.surrounding-photos img {
+    position: absolute;
+    width: 160px;
+    /* Chiều rộng ảnh (đã tăng từ 70px) */
+    height: 160px;
+    /* Chiều cao ảnh (đã tăng từ 70px) */
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: scale(0.7) rotate(-5deg);
+}
+
+/* [CHỈNH VỊ TRÍ CÁC ẢNH XUNG QUANH]
+   - Đã dịch chuyển các tọa độ ra xa hơn 1.5x để tránh đè lên phong bì lớn.
+*/
+.surrounding-photos img:nth-child(1) {
+    top: -15px;
+    left: -45px;
+}
+
+.surrounding-photos img:nth-child(2) {
+    top: -15px;
+    right: -45px;
+}
+
+.surrounding-photos img:nth-child(3) {
+    bottom: -15px;
+    left: -45px;
+}
+
+.surrounding-photos img:nth-child(4) {
+    bottom: -15px;
+    right: -45px;
+}
+
+.surrounding-photos img:nth-child(5) {
+    top: 35%;
+    left: -90px;
+    width: 90px;
+    height: 90px;
+}
+
+.surrounding-photos img:nth-child(6) {
+    top: 35%;
+    right: -90px;
+    width: 90px;
+    height: 90px;
+}
+
+/* Khi mở thư, ảnh hiện ra */
+#envelope.open~.surrounding-photos img,
+.open .surrounding-photos img {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Khi đóng thư, ảnh biến mất */
+#envelope.close~.surrounding-photos img {
+    opacity: 0;
+    transform: scale(0.7) rotate(-5deg);
+}
+
+/* ===== BỨC THƯ (PHONG BÌ) ===== */
+/* [CHỈNH KÍCH THƯỚC PHONG BÌ]
+   - width: Chiều rộng phong bì (mặc định 380px -> đã tăng lên 570px).
+   - height: Chiều cao phong bì (mặc định 240px -> đã tăng lên 360px).
+   - top: Khoảng cách dịch phong bì xuống dưới (mặc định 150px).
+*/
+#envelope {
+    position: relative;
+    width: 570px;
+    /* Thay đổi chiều rộng phong bì (đã tăng 1.5x) */
+    height: 360px;
+    /* Thay đổi chiều cao phong bì (đã tăng 1.5x) */
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin: 0 auto;
+    top: 150px;
+    background-color: var(--color-flap);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.front {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 3;
+}
+
+/* [CHỈNH ĐƯỜNG VIỀN KHỚP NẮP PHONG BÌ - FLAP]
+   - border-left và border-right: Phải bằng đúng 1/2 chiều rộng phong bì (width là 570px -> 285px).
+   - border-top: Chiều sâu của nắp gập khi đóng (mặc định 150px -> đã tăng lên 225px).
+*/
+.flap {
+    border-left: 285px solid transparent;
+    /* Phải bằng 1/2 width phong bì (285px) */
+    border-right: 285px solid transparent;
+    /* Phải bằng 1/2 width phong bì (285px) */
+    border-bottom: 138px solid transparent;
+    border-top: 225px solid var(--color-flap);
+    /* Chiều sâu nắp gập (225px) */
+    transform-origin: top;
+    pointer-events: none;
+}
+
+/* [CHỈNH ĐƯỜNG VIỀN KHỚP TÚI PHONG BÌ - POCKET]
+   - border-left và border-right: Phải bằng đúng 1/2 chiều rộng phong bì (width là 570px -> 285px).
+   - border-bottom: Chiều cao phần túi đằng trước (mặc định 90px -> đã tăng lên 135px).
+   - border-top: Chiều sâu phần rỗng (mặc định 150px -> đã tăng lên 225px).
+*/
+.pocket {
+    border-left: 285px solid var(--color-env);
+    /* Phải bằng 1/2 width phong bì (285px) */
+    border-right: 285px solid var(--color-env);
+    /* Phải bằng 1/2 width phong bì (285px) */
+    border-bottom: 135px solid var(--color-env2);
+    /* Chiều cao phần túi trước (135px) */
+    border-top: 225px solid transparent;
+    /* Chiều sâu rỗng (225px) */
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    z-index: 1;
+}
+
+/* [CHỈNH KÍCH THƯỚC LÁ THƯ BÊN TRONG PHONG BÌ]
+   - Lá thư nằm bên trong phong bì, tự động co giãn theo tỉ lệ % (mặc định 95%).
+*/
+.letter {
+    position: relative;
+    background-color: #e0d9dd;
+    width: 95%;
+    margin: 0 auto;
+    height: 120%;
+    top: 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 26px rgba(0, 0, 0, .08);
+    padding: 15px;
+    /* Lề trong của lá thư */
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.letter:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.00) 25%,
+            rgba(255, 231, 236, 0.70) 55%,
+            rgba(255, 231, 236, 1.00) 100%);
+    pointer-events: none;
+}
+
+.message {
+    position: relative;
+    z-index: 2;
+    font-family: 'Pacifico', cursive;
+    color: #d46a84;
+    text-align: center;
+    line-height: 1.4;
+    padding: 5px;
+    height: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.message::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+}
+
+.message p {
+    margin: 10px 0;
+    font-size: 1.4em;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* [CHỈNH KÍCH THƯỚC VÙNG CHỮ VÀ FONT CHỮ]
+   - max-height: Đã tăng lên 220px (từ 130px) để tận dụng diện tích lá thư to hơn, hiển thị lời chúc thoáng mắt hơn.
+*/
+.lyrics {
+    display: none;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+    max-height: 360px;
+    /* Tăng lên để chứa chữ thoải mái hơn */
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.lyrics::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+}
+
+.lyric-page {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.lyric-page.active {
+    display: block;
+    opacity: 1;
+}
+
+.lyric-page.past {
+    display: block;
+    opacity: 0.55;
+}
+
+/* ===== HIỆU ỨNG MỞ/ĐÓNG ===== */
+.open .flap {
+    transform: rotateX(180deg);
+    transition: transform 0.4s ease, z-index 0.6s;
+    z-index: 1;
+}
+
+.close .flap {
+    transform: rotateX(0deg);
+    transition: transform 0.4s 0.6s ease, z-index 1s;
+    z-index: 5;
+}
+
+.close .letter {
+    transform: translateY(0px);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.4s ease, opacity 0.4s ease, z-index 1s;
+    z-index: 1;
+}
+
+/* [CHỈNH KHOẢNG CÁCH LÁ THƯ TRỢT LÊN KHI MỞ]
+   - Đã thay đổi khoảng cách trượt lên từ translateY(-60px) thành translateY(-110px) để phù hợp chiều cao phong bì mới.
+*/
+.open .letter {
+    transform: translateY(-110px) rotate(-2deg);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.4s 0.6s ease, opacity 0.4s 0.6s ease, z-index 0.6s;
+    z-index: 2;
+}
+
+.open .lyrics {
+    display: block;
+    opacity: 1;
+}
+
+/* ===== TRANG TRÍ ===== */
+.letter-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffd1dc;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.corner-tl {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner-br {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+}
+
+.hearts,
+.sparkles {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.heart,
+.sparkle {
+    position: absolute;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.heart:before,
+.heart:after {
+    content: "";
+    position: absolute;
+    left: 25px;
+    top: 0;
+    width: 25px;
+    height: 40px;
+    background: var(--color-heart);
+    border-radius: 25px 25px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+.sparkle {
+    width: 8px;
+    height: 8px;
+    background: var(--color-sparkle);
+    border-radius: 50%;
+    animation: sparkleTwinkle 1s infinite;
+}
+
+.close .heart,
+.close .sparkle {
+    opacity: 0;
+    animation: none;
+}
+
+.a1 {
+    left: 20%;
+    transform: scale(0.6);
+    animation: slideUp 4s linear infinite, sideSway 2s ease-in-out infinite alternate;
+}
+
+.a2 {
+    left: 55%;
+    animation: slideUp 5s linear infinite, sideSway 4s ease-in-out infinite alternate;
+}
+
+.a3 {
+    left: 10%;
+    transform: scale(0.8);
+    animation: slideUp 7s linear infinite, sideSway 2s ease-in-out infinite alternate;
+}
+
+.s1 {
+    left: 30%;
+    animation: sparkleUp 3s linear infinite;
+}
+
+.s2 {
+    left: 60%;
+    animation: sparkleUp 4s linear infinite;
+}
+
+.s3 {
+    left: 45%;
+    animation: sparkleUp 5s linear infinite;
+}
+
+@keyframes slideUp {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: -600px;
+    }
+}
+
+@keyframes sideSway {
+    0% {
+        margin-left: 0;
+    }
+
+    50% {
+        margin-left: 50px;
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}
+
+@keyframes sparkleUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-500px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkleTwinkle {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+/* ===== NÚT ĐIỀU KHIỂN ===== */
+.controls {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.controls button {
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background-color: var(--color-env);
+    border: 2px solid var(--color-env2);
+    border-radius: 20px;
+    color: white;
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    font-family: Arial, sans-serif;
+}
+
+.controls button:hover {
+    background-color: var(--color-env2);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.2);
+}
+
+.page-indicator {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.8em;
+    color: #d46a84;
+    opacity: 0.7;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
