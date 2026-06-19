@@ -4,10 +4,10 @@ $(document).ready(function () {
     const resetBtn = $("#resetBtn");
 
     let currentPage = 1;
-    
+
     // [CẤU HÌNH] Tổng số dòng thư (nếu bạn thêm/bớt dòng thư ở file index.html thì phải cập nhật số này đúng bằng số trang)
     const totalPages = 23;
-    
+
     let isOpen = false;
     let autoplayInterval = null;
     const lyricsContainer = $('.lyrics');
@@ -20,7 +20,7 @@ $(document).ready(function () {
         resetBtn.show();
         startPhotoRotation();
         playAudioOnce();
-        
+
         // [CẤU HÌNH] Thời gian chờ thư mở ra hoàn toàn rồi mới bắt đầu chạy chữ (1000 = 1 giây)
         setTimeout(startLyricsAutoplay, 1000);
     });
@@ -30,7 +30,7 @@ $(document).ready(function () {
         envelope.removeClass("open").addClass("close");
         isOpen = false;
         stopPhotoRotation();
-        
+
         // Dừng cuộn chữ tự động
         if (autoplayInterval) {
             clearInterval(autoplayInterval);
@@ -43,7 +43,7 @@ $(document).ready(function () {
             $(".lyric-page").removeClass("active past").hide();
             $("#page1").addClass("active").show();
             lyricsContainer.scrollTop(0);
-            
+
             resetBtn.hide();
             openBtn.show();
         }, 600);
@@ -52,11 +52,11 @@ $(document).ready(function () {
     // ===== CUỘN CHỮ TỰ ĐỘNG =====
     function startLyricsAutoplay() {
         if (autoplayInterval) clearInterval(autoplayInterval);
-        
+
         // Reset trạng thái hiển thị của các dòng chữ
         currentPage = 1;
         $(".lyric-page").removeClass("active past").hide();
-        
+
         // Hiển thị câu đầu tiên
         const firstPage = $("#page1");
         firstPage.addClass("active").fadeIn(800); // 800 là thời gian câu xuất hiện (800ms = 0.8 giây)
@@ -67,17 +67,18 @@ $(document).ready(function () {
             if (currentPage < totalPages) {
                 // Chuyển dòng hiện tại sang trạng thái cũ (past - làm mờ đi)
                 $("#page" + currentPage).removeClass("active").addClass("past");
-                
+
                 currentPage++;
-                
+
                 // Hiển thị dòng mới với hiệu ứng fadeIn
                 const nextPage = $("#page" + currentPage);
                 nextPage.addClass("active").hide().fadeIn(800); // 800ms = 0.8 giây xuất hiện mờ dần
-                
+
                 // Cuộn mượt mà xuống dòng mới
-                lyricsContainer.animate({
-                    scrollTop: lyricsContainer[0].scrollHeight
-                }, 800); // 800ms là thời gian cuộn
+                lyricsContainer[0].scrollTo({
+                    top: lyricsContainer[0].scrollHeight,
+                    behavior: "smooth"
+                }); // 800ms là thời gian cuộn
             } else {
                 // Đã chạy hết các dòng
                 clearInterval(autoplayInterval);
@@ -90,16 +91,17 @@ $(document).ready(function () {
     const audio = document.getElementById("sound");
     let hasPlayed = false;
 
-    function playAudioOnce() {
-        if (!hasPlayed) {
-            audio.play().then(() => {
-                hasPlayed = true;
-            }).catch((e) => {
-                console.log("Không thể phát nhạc:", e);
-            });
+    async function playAudioOnce() {
+
+        if (hasPlayed) return;
+
+        try {
+            await audio.play();
+            hasPlayed = true;
+        } catch (e) {
+            console.log("Không thể phát nhạc:", e);
         }
     }
-
     // ===== ẢNH XUNG QUANH - LẤY TỪ THƯ MỤC IMAGES =====
     const surroundingPhotos = document.querySelectorAll('.surrounding-photos img');
     let photoInterval = null;
@@ -133,7 +135,15 @@ $(document).ready(function () {
         'images/24.jpg',
         'images/25.jpg',
         'images/26.jpg',
-        'images/27.jpg'
+        'images/27.jpg',
+        'images/28.jpg',
+        'images/29.jpg',
+        'images/30.jpg',
+        'images/31.jpg',
+        'images/32.jpg',
+        'images/33.jpg',
+        'images/34.jpg',
+        'images/35.jpg',
     ];
 
     // Hàm chọn ngẫu nhiên một ảnh từ danh sách
@@ -144,18 +154,19 @@ $(document).ready(function () {
 
     // Hàm thay đổi ảnh cho tất cả vị trí
     function randomPhotos() {
-        surroundingPhotos.forEach((img) => {
-            // Mỗi ảnh sẽ được thay bằng một ảnh ngẫu nhiên khác nhau
-            img.src = getRandomImage();
-            // (Tùy chọn) thêm timestamp để tránh cache
-            // img.src = getRandomImage() + '?v=' + Date.now();
+
+        const shuffled = [...imagePaths]
+            .sort(() => Math.random() - 0.5);
+
+        surroundingPhotos.forEach((img, index) => {
+            img.src = shuffled[index % shuffled.length];
         });
     }
 
     function startPhotoRotation() {
         if (photoInterval) clearInterval(photoInterval);
         randomPhotos(); // đổi ngay lập tức khi mở
-        
+
         // [CẤU HÌNH] Tốc độ tự đổi ảnh xung quanh thư: 2000 = 2 giây đổi một lần
         photoInterval = setInterval(randomPhotos, 2000);
     }
