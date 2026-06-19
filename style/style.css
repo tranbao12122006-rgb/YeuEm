@@ -33,6 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     user-select: none;
     cursor: auto;
 }
@@ -44,7 +45,7 @@ body {
     align-items: center;
     width: 100%;
     height: calc(600px * var(--scale));
-    margin-top: 50px;
+    margin-top: 0;
     overflow: hidden;
 }
 
