@@ -43,7 +43,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: calc(570px * var(--scale));
+    height: calc(600px * var(--scale));
     margin-top: 50px;
     overflow: hidden;
 }
@@ -541,11 +541,11 @@ body {
 
     0%,
     100% {
-        transform: translateY(0px);
+        transform: scale(var(--scale)) translateY(0px);
     }
 
     50% {
-        transform: translateY(-8px);
+        transform: scale(var(--scale)) translateY(-8px);
     }
 }
 
@@ -585,7 +585,7 @@ body {
     }
 
     .envelope-scaler {
-        min-height: 500px;
+        min-height: 380px;
     }
 
     .message p {
@@ -610,16 +610,16 @@ body {
 }
 
 /* ========================= */
-/* IPHONE */
+/* IPHONE / ANDROID MOBILE */
 /* ========================= */
 @media (max-width: 480px) {
 
     :root {
-        --scale: 0.42;
+        --scale: 0.36;
     }
 
     .envelope-scaler {
-        min-height: 420px;
+        min-height: 240px;
         margin-top: 0;
     }
 
@@ -631,9 +631,9 @@ body {
         font-size: 2em;
     }
 
-    /* Ẩn ảnh xung quanh */
+    /* Hiển thị ảnh xung quanh với kích thước phù hợp di động */
     .surrounding-photos {
-        display: none;
+        display: block;
     }
 
     .controls button {
@@ -648,7 +648,11 @@ body {
 @media (max-width: 360px) {
 
     :root {
-        --scale: 0.35;
+        --scale: 0.32;
+    }
+
+    .envelope-scaler {
+        min-height: 210px;
     }
 
     .message p {
