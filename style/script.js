@@ -6,7 +6,7 @@ $(document).ready(function () {
     let currentPage = 1;
 
     // [CẤU HÌNH] Tổng số dòng thư (nếu bạn thêm/bớt dòng thư ở file index.html thì phải cập nhật số này đúng bằng số trang)
-    const totalPages = 23;
+    const totalPages = 17;
 
     let isOpen = false;
     let autoplayInterval = null;
